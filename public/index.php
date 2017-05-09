@@ -23,8 +23,18 @@ dump($userArray);
  * the age of 30.
  */
 
-$usersUnderThirty = 'Write some code.';
+/**
+* Callback function returns users with an age less than 30 from $userArray.
+*
+* @param array $arrayItem, the current iterated array element of $userArray.
+*
+* @return two dimensional array $usersUnderThirty.
+*/
+$usersUnderThirty = array_filter($userArray, function ($arrayItem){
+    return $arrayItem['age'] < 30;
+});
 
+echo "\n----- Users under 30 -----\n"; //Seperate output and make easier to read
 dump($usersUnderThirty);
 
 /**
@@ -35,8 +45,22 @@ dump($usersUnderThirty);
  * forename and surname fields.
  */
 
-$usersWithFullName = 'Write some code.';
+/**
+* Callback function appends new key: 'full_name' to all elements of $userArray
+* with the value of forename and the surname values of the current $userArray element
+*
+* array_map applies callback function to all elements of $userArray.
+*
+* @param array $arrayItem, the current iterated array element of $userArray.
+*
+* @return two dimensional array $usersWithFullName.
+*/
 
+$usersWithFullName = array_map(function ($arrayItem){
+    return $arrayItem + ['full_name' => $arrayItem['forename'] . ' ' . $arrayItem['surname']];
+}, $userArray);
+
+echo "\n----- Full Name Field Added -----\n";
 dump($usersWithFullName);
 
 /**
@@ -46,6 +70,20 @@ dump($usersWithFullName);
  * the email field removed.
  */
 
-$usersWithEmailRemoved = 'Write some code.';
+/**
+* Callback function removes the 'email' field from a $userArray associative array.
+*
+* array_map applies callback function to all elements of $userArray.
+*
+* @param array $arrayItem, the current iterated array element of $userArray.
+*
+* @return two dimensional array $usersWithEmailRemoved.
+*/
 
+$usersWithEmailRemoved = array_map(function ($arrayItem){
+    unset($arrayItem['email']);
+    return $arrayItem;
+}, $userArray);
+
+print "\n----- Email Field Removed -----\n";
 dump($usersWithEmailRemoved);
